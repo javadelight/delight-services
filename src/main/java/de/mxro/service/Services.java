@@ -1,7 +1,10 @@
 package de.mxro.service;
 
+import delight.async.callbacks.ValueCallback;
 import delight.concurrency.Concurrency;
+import delight.functional.Success;
 
+import de.mxro.service.callbacks.ShutdownCallback;
 import de.mxro.service.internal.OperationCounterImpl;
 import de.mxro.service.internal.ServiceRegistryImpl;
 import de.mxro.service.internal.ShutdownHelperImpl;
@@ -35,6 +38,22 @@ public class Services {
 
     public static ServiceRegistry create() {
         return new ServiceRegistryImpl();
+    }
+
+    public static ShutdownCallback asShutdownCallback(final ValueCallback<Success> callback) {
+        return new ShutdownCallback() {
+
+            @Override
+            public void onSuccess() {
+                callback.onSuccess(Success.INSTANCE);
+            }
+
+            @Override
+            public void onFailure(final Throwable t) {
+                // TODO Auto-generated method stub
+
+            }
+        };
     }
 
 }
