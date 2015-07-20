@@ -40,7 +40,7 @@ public class Services {
         return new ServiceRegistryImpl();
     }
 
-    public static ShutdownCallback asShutdownCallback(final ValueCallback<Success> callback) {
+    public final static ShutdownCallback asShutdownCallback(final ValueCallback<Success> callback) {
         return new ShutdownCallback() {
 
             @Override
@@ -51,6 +51,21 @@ public class Services {
             @Override
             public void onFailure(final Throwable t) {
                 callback.onFailure(t);
+            }
+        };
+    }
+
+    public final static ValueCallback<Success> asValueCallback(final ShutdownCallback callback) {
+        return new ValueCallback<Success>() {
+
+            @Override
+            public void onFailure(final Throwable t) {
+                callback.onFailure(t);
+            }
+
+            @Override
+            public void onSuccess(final Success value) {
+                callback.onSuccess();
             }
         };
     }
