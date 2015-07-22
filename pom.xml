@@ -3,7 +3,7 @@
 	<artifactId>service-api</artifactId>
 	<version>0.0.3</version>
 	<description>An abstract API for the management of services.</description>
-	<url>https://github.com/mxro/service-api</url>
+	<url>https://github.com/javadelight/delight-services</url>
 
 	<properties>
 		<module.gwtVersion>2.5.1</module.gwtVersion>
