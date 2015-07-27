@@ -1,18 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  Copyright 2012 Max Erik Rohde http://www.mxro.de
--->
+
 <module>
  
-	
-  <!-- Other module inherits                                      -->
   <inherits name='delight.concurrency.Concurrency'></inherits>
 
-
-
-  
-
-  <!-- Specify the paths for translatable code                    -->
   <source path=''>
   <exclude name="**/jre/**" />
   </source>
