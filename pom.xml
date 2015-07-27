@@ -19,12 +19,7 @@
 
 	<!-- Dependent Modules -->
 	<dependencies>
-		<dependency>
-			<groupId>org.javadelight</groupId>
-			<artifactId>delight-async</artifactId>
-			<version>0.0.9</version>
-		</dependency>
-
+		
 		<dependency>
 			<artifactId>delight-concurrency</artifactId>
 			<groupId>org.javadelight</groupId>
