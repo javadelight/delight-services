@@ -1,5 +1,6 @@
 package de.mxro.service;
 
+import delight.async.callbacks.SimpleCallback;
 import delight.async.callbacks.ValueCallback;
 import delight.concurrency.Concurrency;
 import delight.functional.Success;
@@ -38,6 +39,21 @@ public class Services {
 
     public static ServiceRegistry create() {
         return new ServiceRegistryImpl();
+    }
+
+    public final static ShutdownCallback asShutdownCallback(final SimpleCallback callback) {
+        return new ShutdownCallback() {
+
+            @Override
+            public void onSuccess() {
+                callback.onSuccess();
+            }
+
+            @Override
+            public void onFailure(final Throwable t) {
+                callback.onFailure(t);
+            }
+        };
     }
 
     public final static ShutdownCallback asShutdownCallback(final ValueCallback<Success> callback) {
