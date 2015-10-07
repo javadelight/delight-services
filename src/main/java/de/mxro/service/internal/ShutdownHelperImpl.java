@@ -8,7 +8,7 @@ import delight.concurrency.wrappers.SimpleAtomicInteger;
 import de.mxro.service.utils.OperationCounter;
 import de.mxro.service.utils.ShutdownHelper;
 
-public class ShutdownHelperImpl implements ShutdownHelper {
+public final class ShutdownHelperImpl implements ShutdownHelper {
 
     private final OperationCounter operationCounter;
 
@@ -32,8 +32,8 @@ public class ShutdownHelperImpl implements ShutdownHelper {
 
     @Override
     public void shutdown(final SimpleCallback callback) {
-        assert !this.isShutdown() : "Cannot shut down already shut down server.";
-        assert !this.isShuttingDown() : "Cannot shut down server which is already shutting down.";
+        assert!this.isShutdown() : "Cannot shut down already shut down server.";
+        assert!this.isShuttingDown() : "Cannot shut down server which is already shutting down.";
 
         this.isShuttingDown.set(true);
 
@@ -62,6 +62,8 @@ public class ShutdownHelperImpl implements ShutdownHelper {
 
     }
 
+    private final void 
+    
     public ShutdownHelperImpl(final OperationCounter operationCounter, final Concurrency con) {
         super();
         this.operationCounter = operationCounter;
