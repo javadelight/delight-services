@@ -37,6 +37,10 @@ public final class ShutdownHelperImpl implements ShutdownHelper {
 
         this.isShuttingDown.set(true);
 
+        performShutdown(callback);
+    }
+
+    private final void performShutdown(final SimpleCallback callback) {
         if (operationCounter.count() == 0) {
             this.isShutdown.set(true);
             callback.onSuccess();
@@ -56,14 +60,11 @@ public final class ShutdownHelperImpl implements ShutdownHelper {
                     return;
                 }
 
-                shutdown(callback);
+                performShutdown(callback);
             }
         });
-
     }
 
-    private final void 
-    
     public ShutdownHelperImpl(final OperationCounter operationCounter, final Concurrency con) {
         super();
         this.operationCounter = operationCounter;
