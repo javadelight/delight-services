@@ -71,6 +71,21 @@ public class Services {
         };
     }
 
+    public final static SimpleCallback asSimpleCallback(final ShutdownCallback callback) {
+        return new SimpleCallback() {
+
+            @Override
+            public void onFailure(final Throwable t) {
+                callback.onFailure(t);
+            }
+
+            @Override
+            public void onSuccess() {
+                callback.onSuccess();
+            }
+        };
+    }
+
     public final static ValueCallback<Success> asValueCallback(final ShutdownCallback callback) {
         return new ValueCallback<Success>() {
 
