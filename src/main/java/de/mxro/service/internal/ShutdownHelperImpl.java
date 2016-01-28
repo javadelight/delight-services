@@ -17,7 +17,7 @@ public final class ShutdownHelperImpl implements ShutdownHelper {
     private final SimpleAtomicBoolean isShuttingDown;
     private final Concurrency con;
 
-    private final static int DEFAULT_DELAY = 10;
+    private final static int DEFAULT_DELAY = 100;
     private final static int MAX_ATTEMPTS = 300;
 
     @Override
