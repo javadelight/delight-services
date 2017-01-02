@@ -26,8 +26,9 @@ public class ServicesJre {
      * @param operationCounter
      * @return
      */
-    public static final ShutdownHelper createShutdownHelper(final OperationCounter operationCounter) {
-        return Services.createShutdownHelper(operationCounter, new JreConcurrency());
+    public static final ShutdownHelper createShutdownHelper(final String serviceName,
+            final OperationCounter operationCounter) {
+        return Services.createShutdownHelper(serviceName, operationCounter, new JreConcurrency());
     }
 
 }

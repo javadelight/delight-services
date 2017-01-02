@@ -32,9 +32,9 @@ public class Services {
      * @param operationCounter
      * @return
      */
-    public static final ShutdownHelper createShutdownHelper(final OperationCounter operationCounter,
-            final Concurrency con) {
-        return new ShutdownHelperImpl(operationCounter, con);
+    public static final ShutdownHelper createShutdownHelper(final String serviceName,
+            final OperationCounter operationCounter, final Concurrency con) {
+        return new ShutdownHelperImpl(serviceName, operationCounter, con);
     }
 
     public static ServiceRegistry create() {

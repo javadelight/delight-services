@@ -16,6 +16,7 @@ public final class ShutdownHelperImpl implements ShutdownHelper {
     private final SimpleAtomicBoolean isShutdown;
     private final SimpleAtomicBoolean isShuttingDown;
     private final Concurrency con;
+    private final String serviceName;
 
     private final static int DEFAULT_DELAY = 100;
     private final static int MAX_ATTEMPTS = 300;
@@ -32,8 +33,8 @@ public final class ShutdownHelperImpl implements ShutdownHelper {
 
     @Override
     public void shutdown(final SimpleCallback callback) {
-        assert!this.isShutdown() : "Cannot shut down already shut down server.";
-        assert!this.isShuttingDown() : "Cannot shut down server which is already shutting down.";
+        assert !this.isShutdown() : "Cannot shut down already shut down server.";
+        assert !this.isShuttingDown() : "Cannot shut down server which is already shutting down.";
 
         this.isShuttingDown.set(true);
 
@@ -56,7 +57,8 @@ public final class ShutdownHelperImpl implements ShutdownHelper {
                 final int attempts = shutdownAttempts.incrementAndGet();
 
                 if (attempts > MAX_ATTEMPTS) {
-                    callback.onFailure(new Exception("Service could not be shut down in timeout."));
+                    callback.onFailure(new Exception("Service could not be shut down in timeout [" + serviceName
+                            + "]. Outstanding operations: " + operationCounter.count()));
                     return;
                 }
 
@@ -65,13 +67,15 @@ public final class ShutdownHelperImpl implements ShutdownHelper {
         });
     }
 
-    public ShutdownHelperImpl(final OperationCounter operationCounter, final Concurrency con) {
+    public ShutdownHelperImpl(final String serviceName, final OperationCounter operationCounter,
+            final Concurrency con) {
         super();
         this.operationCounter = operationCounter;
         this.con = con;
         this.shutdownAttempts = con.newAtomicInteger(0);
         this.isShutdown = con.newAtomicBoolean(false);
         this.isShuttingDown = con.newAtomicBoolean(false);
+        this.serviceName = serviceName;
     }
 
 }
