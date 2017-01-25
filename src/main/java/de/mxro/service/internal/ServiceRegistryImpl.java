@@ -42,6 +42,14 @@ public class ServiceRegistryImpl implements ServiceRegistry {
     }
 
     @Override
+    public void unregister(final Service service) {
+        synchronized (services) {
+            services.remove(service);
+        }
+
+    }
+
+    @Override
     public <InterfaceType> Operation<InterfaceType> subscribe(final Class<InterfaceType> clazz) {
         return new Operation<InterfaceType>() {
 
@@ -54,7 +62,8 @@ public class ServiceRegistryImpl implements ServiceRegistry {
 
     @SuppressWarnings("unchecked")
     @Override
-    public <InterfaceType> void subscribe(final Class<InterfaceType> clazz, final ValueCallback<InterfaceType> callback) {
+    public <InterfaceType> void subscribe(final Class<InterfaceType> clazz,
+            final ValueCallback<InterfaceType> callback) {
 
         if (ENABLE_LOG) {
             System.out.println(this + ": Subscribing for " + clazz);
