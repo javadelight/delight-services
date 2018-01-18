@@ -42,7 +42,7 @@ public final class ShutdownHelperImpl implements ShutdownHelper {
 	}
 
 	private final void performShutdown(final SimpleCallback callback) {
-		if (operationCounter.count() == 0) {
+		if (operationCounter.count() == 0 || shutdownAttempts.get() > MAX_ATTEMPTS) {
 			this.isShutdown.set(true);
 			callback.onSuccess();
 
